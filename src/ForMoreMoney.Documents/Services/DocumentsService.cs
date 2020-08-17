@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Threading.Tasks;
@@ -26,31 +27,27 @@ namespace ForMoreMoney.Documents.Services
             };
         }
 
-        public async Task<MoneyDocument> Get(Guid id)
+        public async Task<Stream> Get(Guid documentId)
         {
-            return new MoneyDocument
-            {
-                Id = id,
-                Name = $"Dino-{id}",
-            };
+            return null;
         }
 
-        public async Task<MoneyDocument> Get(string name)
+        public async Task<Stream> Get(string name)
         {
-            var documentId = Guid.NewGuid();
-            return new MoneyDocument
-            {
-                Id = documentId,
-                Name = $"Juliet-{documentId}",
-            };
+            return null;
         }
 
-        public async Task<bool> Save(MoneyDocument document)
+        public async Task<bool> Save(Stream document)
         {
             return true;
         }
 
         public async Task<bool> Delete(Guid documentId)
+        {
+            return false;
+        }
+
+        public async Task<bool> Delete(string filename)
         {
             return false;
         }

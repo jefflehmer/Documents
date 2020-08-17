@@ -12,7 +12,7 @@ namespace ForMoreMoney.Documents.Extensions
     {
         public static IServiceCollection SetupDocuments(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped(typeof(IDocumentsService), typeof(DocumentsTestService));
+            services.AddScoped(typeof(IDocumentsService), typeof(DocumentsServiceDisk));
 
             return services;
         }

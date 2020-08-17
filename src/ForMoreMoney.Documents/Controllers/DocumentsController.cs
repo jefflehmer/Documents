@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ForMoreMoney.Documents.Controllers
 {
-    //[Authorize]
     [Route("")]
     [Produces("application/json")]
     [ApiController]
@@ -30,6 +29,7 @@ namespace ForMoreMoney.Documents.Controllers
         {
             try
             {
+                // TODO: convert all endpoints to invoke commands rather than execute services directly
                 return await this.service.Count();
             }
             catch (Exception e)
@@ -53,8 +53,9 @@ namespace ForMoreMoney.Documents.Controllers
             }
         }
 
+        /*
         [HttpGet("file/{documentId:Guid}")]
-        public async Task<ActionResult<MoneyDocument>> GetById([FromRoute] Guid documentId)
+        public async Task<ActionResult<FileStreamResult>> GetById([FromRoute] Guid documentId)
         {
             try
             {
@@ -66,16 +67,31 @@ namespace ForMoreMoney.Documents.Controllers
                 throw;
             }
         }
+        */
+
+        [HttpGet("file/{filename}")]
+        public async Task<ActionResult<FileStreamResult>> GetByName([FromRoute] string filename)
+        {
+            try
+            {
+                var stream = await this.service.Get(filename);
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
 
         [HttpPut("save")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Save([FromBody] MoneyDocument document, CancellationToken cancellationToken)
+        public async Task<IActionResult> Save([FromBody] string document, CancellationToken cancellationToken)
         {
             try
             {
-                var temp = new MoneyDocument{Id = Guid.NewGuid(), Name = "foosbinder"};
-                await this.service.Save(document);
+                await this.service.Save(null);
             }
             catch (Exception e)
             {
@@ -86,15 +102,16 @@ namespace ForMoreMoney.Documents.Controllers
             return this.Accepted();
         }
 
-        [HttpPost("delete/{documentId}")]
+        // TODO: use documentId instead of name when go to real db
+        [HttpPost("delete/{filename}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> DeleteDocument([FromRoute] Guid documentId, CancellationToken cancellationToken)
+        public async Task<IActionResult> DeleteDocument([FromRoute] string filename, CancellationToken cancellationToken)
         {
             try
             {
                 var temp = new MoneyDocument();
-                await this.service.Delete(documentId);
+                await this.service.Delete(filename);
             }
             catch (Exception e)
             {

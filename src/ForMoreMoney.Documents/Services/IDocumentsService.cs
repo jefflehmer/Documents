@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using ForMoreMoney.Documents.Models;
 
@@ -11,12 +12,14 @@ namespace ForMoreMoney.Documents.Services
 
         Task<List<string>> ListAll();
 
-        Task<MoneyDocument> Get(Guid id);
+        // Task<Stream> Get(Guid documentId);
 
-        Task<MoneyDocument> Get(string name);
+        Task<Stream> Get(string filename);
 
-        Task<bool> Save(MoneyDocument document);
+        Task<bool> Save(Stream stream);
 
-        Task<bool> Delete(Guid documentId);
+        // Task<bool> Delete(Guid documentId);
+
+        Task<bool> Delete(string filename);
     }
 }

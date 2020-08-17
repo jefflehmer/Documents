@@ -18,6 +18,7 @@
   <ItemGroup>
     <Folder Include="Fakes\" />
     <Folder Include="Integration\DocumentsController\" />
+    <Folder Include="E2E\" />
     <Folder Include="Unit\Commands\" />
     <Folder Include="Unit\Queries\" />
   </ItemGroup>
