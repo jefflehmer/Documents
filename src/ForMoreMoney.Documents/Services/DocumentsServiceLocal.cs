@@ -11,7 +11,7 @@ using Microsoft.Extensions.FileProviders;
 
 namespace ForMoreMoney.Documents.Services
 {
-    public class DocumentsServiceDisk : IDocumentsService
+    public class DocumentsServiceLocal : IDocumentsService
     {
         //  public DocumentsServiceDisk(IWebHostEnvironment env)
         //  {
@@ -19,14 +19,14 @@ namespace ForMoreMoney.Documents.Services
         //  }
 
         // TODO: inject IWebHostingEnvironment to get ContentRootPath instead of hard-coding the path
-        private readonly string DataDirectory = @"C:\github\kendodragon\Documents\src\ForMoreMoney.Documents\Data";
+        private readonly string LocalDirectory = @"C:\github\Documents\src\ForMoreMoney.Documents\Data";
         // public IWebHostEnvironment Environment { get; private set; }
 
         public async Task<int> Count()
         {
             try
             {
-                var provider = new PhysicalFileProvider(this.DataDirectory);
+                var provider = new PhysicalFileProvider(this.LocalDirectory);
                 var contents = provider.GetDirectoryContents(string.Empty);
                 return contents.Count();
             }
@@ -41,7 +41,7 @@ namespace ForMoreMoney.Documents.Services
         {
             try
             {
-                var provider = new PhysicalFileProvider(this.DataDirectory);
+                var provider = new PhysicalFileProvider(this.LocalDirectory);
                 var contents = provider.GetDirectoryContents(string.Empty);
                 var toad =  contents.Select(i => i.Name).ToList();
                 return toad;
@@ -62,7 +62,7 @@ namespace ForMoreMoney.Documents.Services
         {
             try
             {
-                return new FileStream(Path.Combine(this.DataDirectory, filename), FileMode.Open);
+                return new FileStream(Path.Combine(this.LocalDirectory, filename), FileMode.Open);
             }
             catch (Exception e)
             {
@@ -83,7 +83,7 @@ namespace ForMoreMoney.Documents.Services
 
         public async Task<bool> Delete(string filename)
         {
-            File.Delete(Path.Combine(this.DataDirectory, filename));
+            File.Delete(Path.Combine(this.LocalDirectory, filename));
 
             return true;
         }

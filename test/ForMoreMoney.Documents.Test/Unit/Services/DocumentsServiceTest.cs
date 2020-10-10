@@ -14,7 +14,7 @@ namespace ForMoreMoney.Documents.Test.Unit.Services
         public async Task GivenTestInput_WhenGetDocumentCount_ShouldAgree()
         {
             // Arrange
-            var sut = new DocumentsServiceDisk();
+            var sut = new DocumentsServiceLocal();
 
             // Act
             var response = await sut.Count();
@@ -27,7 +27,7 @@ namespace ForMoreMoney.Documents.Test.Unit.Services
         public async Task GivenTestInput_WhenGetDocumentList_ShouldMatch()
         {
             // Arrange
-            var sut = new DocumentsServiceDisk();
+            var sut = new DocumentsServiceLocal();
 
             // Act
             var response = await sut.ListAll();
@@ -40,7 +40,7 @@ namespace ForMoreMoney.Documents.Test.Unit.Services
         public async Task GivenTestInput_WhenGetDocument_ShouldMatch()
         {
             // Arrange
-            var sut = new DocumentsServiceDisk();
+            var sut = new DocumentsServiceLocal();
 
             // Act
             var response = await sut.Get("Fred.txt");
@@ -54,7 +54,7 @@ namespace ForMoreMoney.Documents.Test.Unit.Services
         public async Task GivenTestInput_WhenDeleteDocument_ShouldSucceed()
         {
             // Arrange
-            var sut = new DocumentsServiceDisk();
+            var sut = new DocumentsServiceLocal();
 
             // Act
             var response = await sut.Delete("imag3.png");
